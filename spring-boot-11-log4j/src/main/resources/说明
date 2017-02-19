@@ -1,0 +1,37 @@
+log4j打印日志的使用
+
+1、背景：spring-boot默认使用Logback框架来输出日志，而开发者习惯使用log4j，spring-boot也支持log4j
+
+2、使用
+	(1)由于依赖spring-boot-starter中已经包含了logback日志框架，因此需要去除logback依赖，重新引入log4j依赖。
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter</artifactId>
+		    <exclusions>
+		        <exclusion> 
+		            <groupId>org.springframework.boot</groupId>
+		            <artifactId>spring-boot-starter-logging</artifactId>
+		        </exclusion>
+		    </exclusions>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-log4j</artifactId>
+		</dependency>
+
+3、配置log4j
+	配置文件log4j.properties放到resource目录下
+
+4、输出分类
+	(1)控制台输出
+	(2)输出到文件
+	(3)分类输出
+	
+注意：具体配置文件，真正使用log4j的时候再具体看
+
+5、多环境不同日志级别的控制
+	(1)前面讲到了通过在配置文件application.properties中添加"spring.profiles.active = test"可以设定载入哪个配置文件application-{profile}.properties
+	(2)前面还讲到了可以通过"${}"注入已知的属性配置
+	(3)因此可以通过在application-{profile}.properties配置文件中添加配置属性类似"logging.level"，并将log4j.properties配置文件中的log4j.rootCategory=${logging.level},
+		即可实现使用相应环境的profile配置文件，并使用相应级别的日志
+	

@@ -1,0 +1,1 @@
+JdbcTemplate的使用只需要配置好数据库地址、用户名密码、数据库驱动、jdbc依赖包，spring-boot就可以直接注入JdbcTemplate对象了
