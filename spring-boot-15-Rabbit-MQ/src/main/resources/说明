@@ -1,0 +1,28 @@
+spring-boot中使用RabbitMQ
+
+1、Message Broker与AMQP简介
+	(1)Message Broker是一种消息验证、传输、路由的架构模式，其设计目标主要应用于下面这些场景：
+		消息路由到一个或多个目的地
+		消息转化为其他的表现方式
+		执行消息的聚集、消息的分解，并将结果发送到他们的目的地，然后重新组合相应返回给消息用户
+		调用Web服务来检索数据
+		响应事件或错误
+		使用发布-订阅模式来提供内容或基于主题的消息路由
+	(2)AMQP是Advanced Message Queuing Protocol的简称，它是一个面向消息中间件的开放式标准应用层协议。AMQP定义了这些特性：
+		消息方向
+		消息队列
+		消息路由（包括：点到点和发布-订阅模式）
+		可靠性
+		安全性
+		
+2、RabbitMQ
+	RabbitMQ就是以AMQP协议实现的一种中间件产品，它可以支持多种操作系统，多种编程语言，几乎可以覆盖所有主流的企业级技术平台。
+
+3、RabbitMQ的安装
+	(1)安装Erland，通过官方下载页面http://www.erlang.org/downloads获取exe安装包，直接打开并完成安装。
+	(2)安装RabbitMQ，通过官方下载页面https://www.rabbitmq.com/download.html获取exe安装包。
+	(3)下载完成后，直接运行安装程序。
+	(4)RabbitMQ Server安装完成之后，会自动的注册为服务，并以默认配置启动起来。
+	(5)打开浏览器并访问：http://localhost:15672/，并使用默认用户guest登录，密码也为guest。我们可以看到RabbitMQ的web管理页面
+
+	

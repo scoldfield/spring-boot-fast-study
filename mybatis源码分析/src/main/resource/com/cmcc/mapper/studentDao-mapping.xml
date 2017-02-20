@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   
+  PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+  "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+  
+<mapper namespace="com.cmcc.dao.StudentDao">
+	<resultMap type="com.cmcc.entity.Student" id="studentMap">
+		<id property="idCard" column="stu_id_card"/>
+		<result property="id" column="stu_id"/>
+		<result property="name" column="stu_name"/>
+		<result property="deleteFlag" column="stu_delete_flg"/>
+		
+		<collection property="courseList" ofType="com.cmcc.entity.Course">
+			<id property="id" column="course_id"/>
+			<id property="name" column="course_name"/>
+			<id property="deleteFlag" column="course_delete_flg"/>
+		</collection>
+	</resultMap>
+	
+	<!-- 
+		flushCache属性：<select>标签是默认为false的 
+		useCache属性：<select>标签是默认为true的
+		resultOrdered属性：所有标签默认是false的
+	-->
+	<select id="findStudentById" resultMap="studentMap" >
+		select s.*, c.* from t_student s left join t_course c on s.stu_course_id=c.course_id where stu_id_card = #{idCard}
+	</select>
+	
+	<sql id="">
+		<choose></choose>
+		<foreach collection="" ></foreach>
+		<if test=""></if>
+		<include refid=""/>
+		<set></set>
+		<trim ></trim>
+		<where></where>
+	</sql>
+</mapper>

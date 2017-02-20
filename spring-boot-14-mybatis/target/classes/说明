@@ -1,0 +1,13 @@
+1、spring-boot中通过在测试方法上加上@Transactional注解表示对该方法进行事务控制。也可以在service层加上该注解
+
+2、事务详解
+	(1)通常使用数据库的事务来实现。如，jdbc中的DataSourceTransactionManager类来进行事务管理
+	(2)隔离级别：通过@Transactional(isolation=Isolation.DEFAULT)来指定级别
+		与我们开发相关的主要场景包括：脏读、重复读、幻读。主要在Isolation类中定义：
+		public enum Isolation{
+			DEFAULT(-1),			//默认值，表示使用底层数据库的默认隔离级别。大部分数据库使用的是READ_COMMITTED
+		    READ_UNCOMMITTED(1),	//表示一个事务可以读取另一个事务修改但还没有提交的数据。该级别不能防止脏读和不可重复读。很少使用该级别
+		    READ_COMMITTED(2),		//表示一个事务只能读取另一个事务已经提交的数据。可以防止脏读。大部分情况下推荐的
+		    REPEATABLE_READ(4),		//表示一个事务在整个操作过程中可以多次重复执行某个查询，并且每次返回的数据都相同，即使中间有其他事务修改了数据也会被忽略。可以防止脏读和不可重复读
+		    SERIALIZABLE(8);		//所有事务依次执行，事务间不可能产生干扰，因此可以防止脏读、不可重复、幻读，但是严重影响程序性能。通常不用改级别
+		}

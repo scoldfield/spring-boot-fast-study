@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   
+  PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+  "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+  
+<mapper namespace="com.cmcc.dao.StudentDao">
+	<!-- 
+		<resultMap>标签要注意：
+        1.type 对应类型，可以是javabean, 也可以是其它
+        2.id 必须唯一， 用于标示这个resultMap的唯一性，在使用resultMap的时候，就是通过id指定
+     -->
+	<resultMap type="student" id="studentMap">	<!-- 这里使用别名student来表示Student类。别名的声明在mybatis配置文件mybatis-conf.cml中声明 -->
+		<!-- 
+			<id>标签：唯一性，注意啦，这个id是这个javabean对象的唯一性的标识， 不一定会是数据库的主键（不要把它理解为数据库对应表的主键） ，只要是任何能唯一标识该对象的属性都行，如身份证
+            property：对应javabean的其他属性名，
+            column：对应数据库表的列名（这样，当javabean的属性与数据库对应表的列名不一致的时候，就能通过指定这个保持正常映射了）
+        -->
+		<id property="idCard" column="stu_id_card" />
+		
+		<!-- result与id相比， 对应普通属性 -->   
+		<result property="id" column="stu_id" />
+		<result property="name" column="stu_name" />
+		<result property="deleteFlag" column="stu_delete_flg" />
+		
+		<collection property="courseList" column="stu_course_id" ofType="course">
+			<id property="id" column="course_id"/>
+			<result property="name" column="course_name"/>
+			<result property="deleteFlag" column="course_delete_flg"/>
+		</collection>
+
+		<!-- 
+			<constructor>标签：对应javabean中的构造方法
+			注意：不配置<constructor>的话，Student类中必须有显示的无参构造函数
+		-->
+		<!--
+		<constructor>
+			<idArg javaType="int" column="stu_id"/>
+			<arg javaType="String" column="stu_id_card"/>
+			<arg javaType="String" column="stu_name"/>
+			<arg javaType="int" column="stu_delete_flg"/>
+		</constructor>
+		 -->
+	</resultMap>
+	
+	<select id="findStudentById" resultMap="studentMap">
+		<!-- select * from t_student s left join t_course c on s.stu_course_id = c.course_id where s.stu_id_card = #{idCard} -->
+		SELECT s.*, c.* FROM t_student s LEFT JOIN t_course c ON s.stu_course_id=c.course_id WHERE s.stu_id_card= #{idCard}
+	</select>
+</mapper>
