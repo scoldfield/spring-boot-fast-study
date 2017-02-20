@@ -1,0 +1,4 @@
+1、Spring Boot提供访问redis数据的框架是基于Jedis的
+
+2、如果要往redis中存入对象，那么该对象必须实现serializable接口，
+	且定义RedisConfig类和RedisObjectSerializer类
